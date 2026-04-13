@@ -3,9 +3,9 @@ import NextDayWeatherCard from "@/components/next-day-weather-card";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="min-h-screen bg-[#111015] flex flex-col items-center">
       {/* row 1 */}
-      <div>
+      <div className="flex flex-col items-center gap-y-8">
         {/* next 7 days */}
         <div className="carousel carousel-center w-[257px] h-[226px] gap-x-8">
           <div className="carousel-item">
@@ -32,7 +32,6 @@ export default function Home() {
         </div>
 
         {/* chance of rain */}
-        <div></div>
       </div>
 
       {/* row 2 */}
