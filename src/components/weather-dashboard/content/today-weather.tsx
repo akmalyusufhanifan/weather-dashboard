@@ -57,6 +57,7 @@ export default function TodayWeatherCard({ data }: Props) {
           alt={data.weather[0].description}
           width={90}
           height={90}
+          priority
         />
       </div>
 
