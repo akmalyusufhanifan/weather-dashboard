@@ -8,9 +8,9 @@ export default function WeatherCard() {
   const [data, setData] = useState<WeatherData | null>(null);
   const [location, setLocation] = useState("");
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=e985c524985e9c73325052ed31879977`;
+  const url = `${process.env.NEXT_PUBLIC_WEATHER_BASE_URL}?q=${location}&units=metric&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`;
 
-  const searchLocation = (event: any) => {
+  const searchLocation = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       axios.get(url).then((res) => {
         setData(res.data);
