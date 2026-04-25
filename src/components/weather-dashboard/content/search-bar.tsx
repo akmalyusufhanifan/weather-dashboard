@@ -1,27 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
-import { type WeatherData } from "@/types/weather-data";
 
 type Props = {
-  setData: (data: WeatherData) => void;
+  onSearch: (city: string) => void;
 };
 
-export default function SearchBar({ setData }: Props) {
+export default function SearchBar({ onSearch }: Props) {
   const [location, setLocation] = useState("");
 
-  const url = `${process.env.NEXT_PUBLIC_WEATHER_BASE_URL}?q=${location}&units=metric&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`;
-
-  const handleSearch = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      try {
-        const res = await axios.get(url);
-
-        setData(res.data);
-      } catch (error) {
-        console.error("Error fetching weather:", error);
-      }
+  const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && location.trim()) {
+      onSearch(location);
       setLocation("");
     }
   };
