@@ -10,15 +10,22 @@ import { Bar } from "react-chartjs-2";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
-export default function ChanceOfRain() {
+type Props = {
+  data: any[];
+};
+
+export default function ChanceOfRain({ data }: Props) {
+  const labels = data.map((item) => item.dt_txt.split(" ")[1].slice(0, 5));
+  const values = data.map((item) => Math.round(item.pop * 100));
+
   return (
     <div className="w-[297px] h-[226px]">
       <Bar
         data={{
-          labels: ["10AM", "11AM", "12AM", "01PM", "02PM", "03PM"],
+          labels,
           datasets: [
             {
-              data: [60, 55, 80, 40, 70, 35],
+              data: values,
               backgroundColor: "rgba(186, 212, 235, 1)",
               barPercentage: 0.2,
               borderRadius: 5,
@@ -29,12 +36,13 @@ export default function ChanceOfRain() {
           responsive: true,
           maintainAspectRatio: false,
           animation: {
-            duration: 1500,
-            easing: "easeOutQuart",
+            duration: 1200,
+            easing: "easeInOutQuart",
           },
           animations: {
             y: {
-              from: 99,
+              delay: (ctx) => ctx.dataIndex * 80,
+              from: 200,
             },
           },
           scales: {
@@ -45,15 +53,10 @@ export default function ChanceOfRain() {
             },
             y: {
               min: 0,
-              max: 99,
+              max: 100,
               ticks: {
-                stepSize: 33,
-                callback: (value) => {
-                  if (value === 33) return "Heavy";
-                  if (value === 66) return "Sunny";
-                  if (value === 99) return "Rainy";
-                  return "";
-                },
+                stepSize: 25,
+                callback: (value) => `${value}%`,
                 color: "rgba(253, 253, 253, 1)",
               },
 
