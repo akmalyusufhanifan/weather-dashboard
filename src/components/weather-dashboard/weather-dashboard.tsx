@@ -80,6 +80,14 @@ export default function WeatherDashboard() {
       );
 
       setForecast(daily);
+
+      const today = new Date().toISOString().split("T")[0];
+
+      const todayForecast = forecastRes.data.list.filter((item: any) =>
+        item.dt_txt.includes(today),
+      );
+
+      setHourlyForecast(todayForecast);
     } catch (err) {
       console.error(err);
     }
