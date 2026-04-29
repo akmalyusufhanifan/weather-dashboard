@@ -1,12 +1,20 @@
+"use client";
+
 import WeatherDetail from "./content/weather-detail";
-import Maps from "./content/maps";
+import CityMap from "./content/city-map";
 import OtherCityWeather from "./content/other-city-weather";
 
-export default function WeatherOverview() {
+type Props = {
+  coords: [number, number];
+};
+
+export default function WeatherOverview({ coords }: Props) {
   return (
     <div className="flex items-center gap-x-10">
       <WeatherDetail />
-      <Maps />
+      {coords && !isNaN(coords[0]) && !isNaN(coords[1]) && (
+        <CityMap coords={coords} />
+      )}
       <OtherCityWeather />
     </div>
   );
