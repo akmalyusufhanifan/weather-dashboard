@@ -90,7 +90,7 @@ export default function Home() {
       />
 
       {/* row 2 */}
-      <WeatherOverview coords={coords} />
+      <WeatherOverview coords={coords} data={data} />
     </div>
   );
 }
